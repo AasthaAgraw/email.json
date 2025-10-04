@@ -1,0 +1,11 @@
+name: Run my first GitHub Action
+
+on:
+  workflow_dispatch:  # allows manual trigger
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 25ds3000118@ds.study.iitm.ac.in
+        run: echo "Hello from GitHub Actions! My email is embedded successfully."
