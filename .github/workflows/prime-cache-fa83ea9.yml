@@ -21,12 +21,12 @@ jobs:
 
       - name: prime-cache-fa83ea9
         run: |
+          echo "Run echo \"Cache hit? -> $CACHE_HIT\""
           echo "Cache hit? -> $CACHE_HIT"
           if [ "${CACHE_HIT}" = "true" ]; then
             echo "Cache was a hit."
           else
             echo "Cache was a miss (primed now)."
-            # create a dummy cache file to ensure next run will hit
             mkdir -p ~/.cache/uv
             echo "primed at $(date -u)" > ~/.cache/uv/prime.txt
           fi
