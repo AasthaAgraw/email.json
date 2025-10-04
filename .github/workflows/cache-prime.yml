@@ -1,0 +1,34 @@
+name: Prime Cache fa83ea9
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prime-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: cache
+        name: Restore or create cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/uv
+            .cache/uv
+          key: cache-fa83ea9
+
+      - name: prime-cache-fa83ea9
+        run: |
+          echo "Cache hit? -> $CACHE_HIT"
+          if [ "${CACHE_HIT}" = "true" ]; then
+            echo "Cache was a hit."
+          else
+            echo "Cache was a miss (primed now)."
+            # create a dummy cache file to ensure next run will hit
+            mkdir -p ~/.cache/uv
+            echo "primed at $(date -u)" > ~/.cache/uv/prime.txt
+          fi
+        env:
+          CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
